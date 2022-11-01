@@ -161,7 +161,7 @@
                 </tr>
                 <tr>
                     <#if ci.custrecord_nsts_ci_cld_inv_duedate_upd==true>
-                        <td>${ci.custrecord_nsts_ci_tran_duedate}</td>
+                        <td>${ci.custrecord_nsts_ci_tran_duedate?string["DD/MM/YYYY"] }</td>
                         <#else>
                             <td>${ci.custrecord_nsts_ci_term}</td>
                     </#if>
