@@ -105,7 +105,7 @@
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
-                            <td>Invoice #&nbsp;${ci.name}<br />Invoice Date&nbsp;${ci.custrecord_nsts_ci_date}</td>
+                            <td>Invoice #&nbsp;${ci.name}<br />Invoice Date&nbsp;${ci.custrecord_nsts_ci_date?string["MMMM dd,yyyy"]}</td>
                         </tr>
                         <tr>
                             <#if ci.custrecord_bpc_sub_name="Eventsforce Solutions Ltd">
