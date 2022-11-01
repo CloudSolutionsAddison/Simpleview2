@@ -1,0 +1,415 @@
+<?xml version="1.0"?>
+<!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+
+    <head>
+        <link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}"
+            src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}"
+            src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+        <#if .locale=="zh_CN">
+            <link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}"
+                src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+            <#elseif .locale=="zh_TW">
+                <link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}"
+                    src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+                <#elseif .locale=="ja_JP">
+                    <link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}"
+                        src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+                    <#elseif .locale=="ko_KR">
+                        <link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}"
+                            src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+                        <#elseif .locale=="th_TH">
+                            <link name="NotoSansThai" type="font" subtype="opentype"
+                                src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+        </#if>
+
+        <#if record.currencysymbol=="USD">
+            <#setting locale="en_US">
+            <#elseif record.currencysymbol="GBP">
+                <#setting locale="en_GB">
+            <#elseif record.currencysymbol="CAD">
+                <#setting locale="en_CA">
+            <#elseif record.currencysymbol="EUR">
+                <#setting locale="nl_NL">
+            <#elseif record.currencysymbol="NOK">
+                <#setting locale="no_NO">
+            <#elseif record.currencysymbol="AED">
+                <#setting locale="en_AE">
+            <#elseif record.currencysymbol="MXN">
+                <#setting locale="es_ES">
+            <#elseif record.currencysymbol="BRL">
+                <#setting locale="pt_BR">
+            <#elseif record.currencysymbol="CHF">
+                <#setting locale="de_CH">
+        </#if>
+
+        <macrolist>
+            <macro id="nlheader">
+                <table>
+                    <tr>
+                        <#if record.department="2Synergize">
+                            <td rowspan="2"><img
+                                    src="https://738900.app.netsuite.com/core/media/media.nl?id=164886&amp;c=738900&amp;h=44ac7e938c958318ba49"
+                                    style="font-size: 13.3333px; background-color: rgb(255, 255, 255); width: 177.25px; height: 136.35px;" />
+                            </td>
+                            <#elseif record.department="Mint+">
+                                <td rowspan="2"><img
+                                        src="https://738900.app.netsuite.com/core/media/media.nl?id=182170&amp;c=738900&amp;h=c8d2f9058513e61a94c0"
+                                        style="font-size: 13.3333px; background-color: rgb(255, 255, 255); width: 200px; height: 100px;" />
+                                </td>
+                                <#elseif subsidiary.name="Eventsforce Solutions Ltd">
+                                    <td rowspan="2"><img
+                                            src="http://738900.shop.netsuite.com/core/media/media.nl?id=419039&amp;c=738900&amp;h=aYiVk0km4jCP_i_gMZ0ZaMQH5jr7K0kmNZ7EwdIHfhZkc2Qk"
+                                            style="font-size: 13.3333px; background-color: rgb(255, 255, 255); width: 200px; height: 100px;" />
+                                    </td>
+                                    <#elseif subsidiary.name="Eventsforce LLC">
+                                        <td rowspan="2"><img
+                                                src="http://738900.shop.netsuite.com/core/media/media.nl?id=419039&amp;c=738900&amp;h=aYiVk0km4jCP_i_gMZ0ZaMQH5jr7K0kmNZ7EwdIHfhZkc2Qk"
+                                                style="font-size: 13.3333px; background-color: rgb(255, 255, 255); width: 200px; height: 100px;" />
+                                        </td>
+                                        <#else>
+                                            <td rowspan="2"><img
+                                                    src="http://738900.shop.netsuite.com/core/media/media.nl?id=1448&amp;c=738900_SB1&amp;h=572f50ba9dfa05c614d9"
+                                                    style="font-size: 13.3333px; background-color: rgb(255, 255, 255); width: 200px; height: 100px;" />
+                                            </td>
+                        </#if>
+                        <td>&nbsp;</td>
+                        <td style="font-size:18px;"><br /><strong>${record@title}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>PO # &nbsp;${record.otherrefnum}<br />Invoice #&nbsp;${record.tranid}<br />Invoice
+                            Date&nbsp;${record.trandate?string.long}</td>
+                    </tr>
+                    <tr>
+                        <#if subsidiary.name="Eventsforce Solutions Ltd">
+                            <td class="addressheader">${subsidiary.mainaddress_text}<br />accounting@eventsforce.com
+                            </td>
+                            <#elseif subsidiary.name="Eventsforce LLC">
+                                <td class="addressheader">
+                                    ${record.subsidiary}<br />${companyInformation.addressText}<br />accounting@eventsforce.com
+                                </td>
+                                <#elseif subsidiary.name="New Mind Internet Consultancy Limited" ||
+                                    subsidiary.name="New Vision Group Limited">
+                                    <td class="addressheader">
+                                        ${subsidiary.mainaddress_text}<br />VAT Reg
+                                        No: ${subsidiary.federalidnumber}<br />finance@newmind.co.uk
+                                    </td>
+                                    <#else>
+                                        <td class="addressheader">
+                                            ${record.subsidiary}<br />${companyInformation.addressText}<br />accounts@simpleviewinc.com
+                                        </td>
+                        </#if>
+                        <td>&nbsp;</td>
+                        <#if subsidiary.name="Eventsforce Solutions Ltd">
+                            <td class="addressheader">
+                                <strong>${record.billaddress@label}</strong><br />${record.entity}<br />${record.billaddress}
+                            </td>
+                            <#elseif subsidiary.name="Eventsforce LLC">
+                                <td class="addressheader">
+                                    <strong>${record.billaddress@label}</strong><br />${record.entity}<br />${record.billaddress}
+                                </td>
+                                <#else>
+                                    <td class="addressheader">
+                                        <strong>${record.billaddress@label}</strong><br />${record.billaddress}
+                                    </td>
+                        </#if>
+                    </tr>
+                </table>
+            </macro>
+            <macro id="nlfooter">
+                <table class="footer">
+                    <tr>
+                        <td align="right">
+                            <pagenumber /> of
+                            <totalpages />
+                        </td>
+                    </tr>
+                </table>
+            </macro>
+        </macrolist>
+        <style type="text/css">
+            body {
+                font-family: arial, helvetica, sans-serif;
+                font-size: 12px;
+            }
+
+            table {
+                table-layout: fixed;
+                width: 100%;
+            }
+
+            table th {
+                font-weight: bold;
+                vertical-align: middle;
+                padding: 5px 6px 3px;
+                background-color: #e3e3e3;
+                color: #333333;
+                white-space: nowrap;
+            }
+
+            table td {
+                padding: 4px 6px;
+            }
+
+            td.addressheader {
+                font-size: 11px;
+                padding-top: 6px;
+                padding-bottom: 2px;
+            }
+
+            td.address {
+                padding-top: 0px;
+            }
+
+            table.footer td {
+                padding: 0px;
+                font-size: 11px;
+            }
+
+            table.itemtable th {
+                padding-bottom: 10px;
+                padding-top: 10px;
+                white-space: nowrap;
+            }
+
+            table.itemtable td.nowrap {
+                white-space: nowrap;
+            }
+
+            table.total {
+                page-break-inside: avoid;
+            }
+
+            b,
+            strong {
+                color: #333333;
+                font-weight: bolder;
+                font-weight: bold;
+            }
+
+            hr {
+                width: 100%;
+                color: #d3d3d3;
+                background-color: #d3d3d3;
+                height: 1px;
+            }
+        </style>
+    </head>
+
+    <body header="nlheader" header-height="25%" footer="nlfooter" footer-height="20pt"
+        padding="0.25in 0.25in 0.25in 0.25in" size="Letter">
+        <table class="itemtable">
+            <tr>
+                <th align="left">${record.terms@label}</th>
+                <th align="left">Currency</th>
+            </tr>
+            <tr>
+                <td>${record.terms}</td>
+                <td>${record.currency}</td>
+            </tr>
+        </table>
+
+        <#if record.custbody_bpc_invoice_memo?has_content>
+            <table class="itemtable">
+                <tr>
+                    <th>${record.custbody_bpc_invoice_memo@label}</th>
+                </tr>
+                <tr>
+                    <td>${record.custbody_bpc_invoice_memo}</td>
+                </tr>
+            </table>
+        </#if>
+
+        <#if record.item?has_content>
+            <#assign newItems={} />
+            <#list record.item as item>
+                <#if item.custcol_bpc_item_product_line=="CRM">
+                    <#if newItems["CRM"]??>
+                        <#assign newItems=newItems + {"CRM" : {"name": "CRM Licensing" , "amount"
+                            :newItems["CRM"]["amount"] + item.amount}} />
+                        <#else>
+                            <#assign newItems=newItems + {"CRM" : {"name": "CRM Licensing" , "amount" :item.amount}} />
+                    </#if>
+                    <#elseif item.custcol_bpc_item_product_line=="CMS">
+                        <#if newItems["CMS"]??>
+                            <#assign newItems=newItems + {"CMS" : {"name": "CMS Licensing" , "amount"
+                                :newItems["CMS"]["amount"] + item.amount}} />
+                            <#else>
+                                <#assign newItems=newItems + {"CMS" : {"name": "CMS Licensing" , "amount"
+                                    :item.amount}} />
+                        </#if>
+
+                        <#elseif item.custcol_bpc_item_product_line=="EU eCMS">
+                            <#if newItems["eCMS"]??>
+                                <#assign newItems=newItems + {"eCMS" : {"name": "eCMS Licensing" , "amount"
+                                    :newItems["eCMS"]["amount"] + item.amount}} />
+                                <#else>
+                                    <#assign newItems=newItems + {"eCMS" : {"name": "eCMS Licensing" , "amount"
+                                        :item.amount}} />
+                            </#if>
+
+                            <#elseif item.custcol_bpc_item_product_line=="EU DMS">
+                                <#if newItems["DMS"]??>
+                                    <#assign newItems=newItems + {"DMS" : {"name": "DMS Licensing" , "amount"
+                                        :newItems["DMS"]["amount"] + item.amount}} />
+                                    <#else>
+                                        <#assign newItems=newItems + {"DMS" : {"name": "DMS Licensing" , "amount"
+                                            :item.amount}} />
+                                </#if>
+
+                                <#else>
+                                    <#assign newItems=newItems + {item.lineuniquekey : {"name":
+                                        item.description?chop_linebreak, "startdate" :
+                                        item.custcol_swe_contract_start_date, "enddate" :
+                                        item.custcol_swe_contract_end_date, "quantity" : item.quantity, "rate" :
+                                        item.rate, "amount" : item.amount}} />
+                </#if>
+            </#list>
+
+            <table class="itemtable" style="margin-top: 10px;">
+                <!-- start items -->
+                <#assign itemGroupKeys=newItems?keys />
+                <#if itemGroupKeys??>
+                    <thead>
+                        <tr>
+                            <th align="left" colspan="3">Item</th>
+                            <th align="right">Amount</th>
+                        </tr>
+                    </thead>
+
+                    <#list itemGroupKeys as key>
+                        <tr>
+                            <td colspan="3">
+                                <#if newItems[key]["name"]??>${newItems[key]["name"]}</#if>
+                            </td>
+                            <td align="right" class="nowrap">
+
+								<#if newItems[key]["amount"]??>${newItems[key]["amount"]?string.currency}</#if>
+							</td>
+                        </tr>
+                    </#list>
+                    <!-- end items -->
+                </#if>
+            </table>
+            <hr /><br />
+        </#if>
+        <table class="total" style="margin-top: 10px;">
+            <tr>
+                <td colspan="4">&nbsp;</td>
+                <td align="right"><b>${record.subtotal@label}</b></td>
+                <td align="right">${record.subtotal}</td>
+            </tr>
+            <tr>
+                <td colspan="4">&nbsp;</td>
+                <td align="right"><b>${record.taxtotal@label}</b></td>
+                <td align="right">${record.taxtotal}</td>
+            </tr>
+            <tr>
+                <td colspan="4">&nbsp;</td>
+                <td align="right"><b>${record.total@label}</b></td>
+                <td align="right">${record.total}</td>
+            </tr>
+            <tr>
+                <td colspan="4">&nbsp;</td>
+                <td align="right"><b>Payment/Credits</b></td>
+                <td align="right">(${record.custbody_payment})</td>
+            </tr>
+            <tr>
+                <td colspan="4">&nbsp;</td>
+                <td align="right"><b>Amount Due</b></td>
+                <td align="right">${record.custbody_outstandingamount}</td>
+            </tr>
+        </table>
+
+        <div style="page-break-inside: avoid;">
+            <#if subsidiary.name=="Simpleview Canada LLC">
+                <p style="font-size:11px;">Bank instructions:<br />Account Name: Simpleview Canada,
+                    Inc.<br />Address:
+                    8950
+                    N. Oracle Road, Tucson AZ 85704<br />Account No: 3302650980<br />ABA Routing No:
+                    121140399<br />SWIFT
+                    Code: SVBKUS6S<br />Bank Name: Silicon Valley Bank</p>
+
+
+                <#elseif subsidiary.name=="2Synergize LLC">
+                    <p style="font-size:11px;"><strong style="font-size:16px;">Payment
+                            Instructions:</strong><br /><strong>Electronic Transfers:</strong><br />Account Name:
+                        simpleview
+                        2Synergize, LLC<br />Address: 8950 N. Oracle Road, Tucson AZ 85704<br />Account No:
+                        3302655591<br />ABA Routing No: 121140399<br />SWIFT Code: SVBKUS6S<br />Bank Name: Silicon
+                        Valley
+                        Bank</p>
+                    <p style="font-size:11px;"><strong>Check Payments:</strong><br /><strong>Mail Check payments to
+                            the
+                            following address:</strong><br />2Synergize<br />Attn: Accounts Receivable<br />18263
+                        Verano
+                        Drive<br />San Diego, CA 92128</p>
+
+
+                    <#elseif subsidiary.name=="Eventsforce Solutions Ltd">
+                        <p style="font-size:11px;"><strong style="font-size:16px;">Payee: Eventsforce Solutions
+                                Ltd</strong><br /><strong>Sort Code: 30-94-57</strong><br />Account No.
+                            01851760<br />Bank
+                            Name: Lloyds Bank Plc<br />19-20 Upper Street, Islington, London, N1 0PJ<br />BIC:
+                            LOYDGB21158<br />IBAN: GB26 LOYD 3094 5701 8517 60<br />Registered Office: Wenlock
+                            Studios,
+                            50-52 Wharf Road, London, N1 7EU<br />VAT Reg No. GB 835262235<br />Company No. 05025902
+                        </p>
+
+
+                        <#elseif subsidiary.name=="Eventsforce LLC">
+                            <p style="font-size:11px;"><strong style="font-size:16px;">Account: Eventsforce
+                                    LLC</strong><br /><strong>Address: 8950 N Oracle Rd, Tucson, AZ
+                                    85704</strong><br />Account No: 3303225519<br />ABA Routing No:
+                                121140399<br />SWIFT
+                                Code: SVBKUS6S<br />Bank Name: Silicon Valley Bank<br />Bank Address: 3003 Tasman
+                                Drive,
+                                Santa Clara, CA 95054</p>
+
+                            <#elseif subsidiary.name=="New Mind Internet Consultancy Limited">
+                                <p style="font-size:11px;"><strong>Payee: New Mind Internet Consultancy
+                                        Ltd</strong><br />Sort Code: 12-17-40<br />Account No: 06011650<br />Bank
+                                    Name:
+                                    Bank of Scotland<br />BIC: BOFSGB21274<br />IBAN: GB55 BOFS 1217 4006 0116
+                                    50<br />Registered Office: New Mind Internet Consultancy Ltd, c/o <br />Langtons
+                                    Chartered Accountants, The Plaza, 100 Old<br />Hall Street, Liverpool, L3
+                                    9QJ<br />Registered Company No. 3490987</p>
+
+                                <#elseif subsidiary.name=="New Vision Group Limited">
+                                    <p style="font-size:11px;"><strong>Payee: New Vision Group
+                                            Limited</strong><br />Sort Code: 40-43-19<br />Account No:
+                                        11726684<br />Bank Name: HSBC<br />BIC: HBUKGB4113M<br />IBAN: GB35HBUK40431911726684<br />Registered Office: New Vision Group Ltd, c/o Langtons <br />Chartered Accountants, The Plaza, 100 Old Hall Street,<br />
+                                        Liverpool, L3 9QJ<br />Registered Company No. 05196236
+                                    </p>
+
+                                    <#elseif subsidiary.name=="YourMeeting, LLC">
+                                        <p style="font-size:13px;"><b>Bank instructions:</b><br />Account Name:
+                                            simpleview MINT
+                                            Plus<br />Address: 8950 N. Oracle Road, Tucson AZ 85704<br />Account No:
+                                            3302907778<br />ABA Routing No: 121140399<br />SWIFT Code:
+                                            SVBKUS6S<br />Bank Name:
+                                            Silicon Valley Bank</p>
+                                        <p style="font-size:10px;">MINT+ is the meetings and group market database
+                                            of
+                                            Destinations
+                                            International and Simpleview is the exclusive licensee, responsible for
+                                            the
+                                            design and
+                                            development of the industry&#39;s largest data co-op of information on
+                                            organizations and
+                                            their meetings and events.</p>
+
+
+                                        <#elseif subsidiary.name !="2Synergize" && subsidiary.name !="YourMeeting, LLC">
+                                            <p style="font-size:11px;">Bank instructions:<br />Account Name:
+                                                Simpleview
+                                                LLC<br />Address: 8950 N. Oracle Road, Tucson AZ 85704<br />Account
+                                                No:
+                                                3300963445<br />ABA Routing No: 121140399<br />SWIFT Code:
+                                                SVBKUS6S<br />Bank Name:
+                                                Silicon Valley Bank</p>
+            </#if>
+        </div>
+    </body>
+</pdf>
