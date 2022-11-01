@@ -79,7 +79,7 @@
                     <tr>
                         <td>&nbsp;</td>
                         <td>PO # &nbsp;${record.otherrefnum}<br />Invoice #&nbsp;${record.tranid}<br />Invoice
-                            Date&nbsp;${record.trandate?string.long}</td>
+                            Date&nbsp;${record.trandate?string["MMMM dd,yyyy"]}</td>
                     </tr>
                     <tr>
                         <#if subsidiary.name="Eventsforce Solutions Ltd">
